@@ -1,0 +1,48 @@
+# =============================================================================
+# Лабораторна робота № 4. Приклад docker-compose.yml для MySQL
+# Дисципліна «Організація баз даних» · НУ «Чернігівська політехніка»
+#
+# Запуск:   docker compose up -d
+# Підключення (CLI): docker exec -it photocenter_mysql mysql -u app -p photocenter
+# Перестворення "з нуля": docker compose down -v && docker compose up -d
+# =============================================================================
+
+services:
+  mysql:
+    image: mysql:8.4
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_0900_ai_ci
+    container_name: photocenter_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "3307:3306"
+    volumes:
+      - ./mysql/init:/docker-entrypoint-initdb.d:ro
+      - mysql_data:/var/lib/mysql
+
+  web:
+    build: .
+    container_name: photocenter_web
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8080:80"
+    volumes:
+      - ./public:/var/www/html
+      - ./src:/var/www/src
+    environment:
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+    depends_on:
+      - mysql
+
+volumes:
+  mysql_data:
