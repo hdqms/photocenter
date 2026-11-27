@@ -1,0 +1,13 @@
+.env
+.env.*
+!.env.example
+
+*.rar
+*.zip
+*.log
+
+.vscode/
+.idea/
+
+Thumbs.db
+.DS_Store

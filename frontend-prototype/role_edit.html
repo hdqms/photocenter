@@ -1,0 +1,104 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Фотоцентр — Редагування посади</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header>
+    <h1>Фотоцентр</h1>
+    <p>Система управління базою даних</p>
+</header>
+
+<nav>
+    <a href="index.html">Клієнти</a>
+    <a href="services.html">Послуги</a>
+    <a href="orders.html">Замовлення</a>
+    <a href="bookings.html">Бронювання</a>
+    <a href="employees.html">Працівники</a>
+    <a href="halls.html">Фотозали</a>
+    <a href="roles.html">Посади</a>
+    <a href="categories.html">Категорії послуг</a>
+    <a href="formats.html">Формати друку</a>
+    <a href="order_items.html">Позиції замовлень</a>
+    <a href="payments.html">Оплати</a>
+    <a href="print_files.html">Файли друку</a>
+</nav>
+
+<main>
+    <h2>Редагування посади</h2>
+
+    <form action="#" method="post" class="client-form">
+          <input type="hidden" id="role_id" name="role_id">
+
+        <label for="role_name">Назва посади</label>
+        <input type="text"
+               id="role_name"
+               name="role_name"
+               maxlength="50"
+               required>
+
+        <label for="description">Опис посади</label>
+        <textarea id="description"
+                  name="description"
+                  maxlength="255"
+                  rows="4"></textarea>
+
+        <div class="form-actions">
+            <button type="submit">Зберегти зміни</button>
+
+            <a href="roles.html" class="cancel-btn">
+                Скасувати
+            </a>
+        </div>
+    </form>
+  
+</main>
+
+<script>
+    const roles = {
+        1: {
+            role_name: "Адміністратор",
+            description: "Керує послугами та розкладом"
+        },
+        2: {
+            role_name: "Менеджер",
+            description: "Оформлює замовлення й бронювання"
+        },
+        3: {
+            role_name: "Друкар",
+            description: "Виконує друк замовлень"
+        },
+        4: {
+            role_name: "Фотограф",
+            description: "Проводить фотосесії"
+        }
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    const roleId = params.get("id");
+    const role = roles[roleId];
+
+    if (role) {
+        document.getElementById("role_id").value = roleId;
+
+        document.getElementById("role_name").value =
+            role.role_name;
+
+        document.getElementById("description").value =
+            role.description;
+    } else {
+        document.querySelector(".client-form").hidden = true;
+
+        document.querySelector("main h2").textContent =
+            "Посаду не знайдено";
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,74 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Фотоцентр — Додати клієнта</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header>
+    <h1>Фотоцентр</h1>
+    <p>Система управління базою даних</p>
+</header>
+
+<nav>
+    <a href="index.html">Клієнти</a>
+    <a href="services.html">Послуги</a>
+    <a href="orders.html">Замовлення</a>
+    <a href="bookings.html">Бронювання</a>
+    <a href="employees.html">Працівники</a>
+    <a href="halls.html">Фотозали</a>
+    <a href="roles.html">Посади</a>
+    <a href="categories.html">Категорії послуг</a>
+    <a href="formats.html">Формати друку</a>
+    <a href="order_items.html">Позиції замовлень</a>
+    <a href="payments.html">Оплати</a>
+    <a href="print_files.html">Файли друку</a>
+</nav>
+
+<main>
+    <h2>Додати клієнта</h2>
+
+    <form action="#" method="post" class="client-form">
+
+        <label for="full_name">ПІБ клієнта</label>
+        <input
+            type="text"
+            id="full_name"
+            name="full_name"
+            maxlength="100"
+            required
+        >
+
+        <label for="phone">Номер телефону</label>
+        <input
+            type="tel"
+            id="phone"
+            name="phone"
+            maxlength="20"
+            required
+        >
+
+        <label for="birth_date">Дата народження</label>
+        <input
+            type="date"
+            id="birth_date"
+            name="birth_date"
+        >
+
+        <div class="form-actions">
+            <button type="submit">Зберегти</button>
+            <a href="index.html" class="cancel-btn">
+                Скасувати
+            </a>
+        </div>
+
+    </form>
+</main>
+
+</body>
+</html>

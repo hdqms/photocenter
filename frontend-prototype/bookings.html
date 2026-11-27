@@ -1,0 +1,111 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Фотоцентр — Бронювання</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header>
+    <h1>Фотоцентр</h1>
+    <p>Система управління базою даних</p>
+</header>
+
+<nav>
+    <a href="index.html">Клієнти</a>
+    <a href="services.html">Послуги</a>
+    <a href="orders.html">Замовлення</a>
+    <a href="bookings.html">Бронювання</a>
+    <a href="employees.html">Працівники</a>
+    <a href="halls.html">Фотозали</a>
+    <a href="roles.html">Посади</a>
+    <a href="categories.html">Категорії послуг</a>
+    <a href="formats.html">Формати друку</a>
+    <a href="order_items.html">Позиції замовлень</a>
+    <a href="payments.html">Оплати</a>
+    <a href="print_files.html">Файли друку</a>
+</nav>
+
+<main>
+    <h2>Список бронювань</h2>
+
+    <div class="toolbar">
+        <input type="search"
+               placeholder="Пошук замовлення">
+
+        <button type="button">Знайти</button>
+
+        <a href="booking_form.html" class="add-btn">
+            Додати бронювання
+        </a>
+    </div>
+
+    
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Клієнт</th>
+            <th>Фотозал</th>
+            <th>Працівник</th>
+            <th>Початок</th>
+            <th>Завершення</th>
+            <th>Вартість, грн</th>
+            <th>Статус</th>
+            <th>Дії</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            <td>1</td>
+            <td>Іваненко Іван</td>
+            <td>Зал №1</td>
+            <td>Романенко Наталія</td>
+            <td>2026-11-20 10:00</td>
+            <td>2026-11-20 12:00</td>
+            <td>1000.00</td>
+            <td>Підтверджено</td>
+            <td>
+                <a href="booking_edit.html?id=1"
+                   class="edit-btn">
+                    Редагувати
+                </a>
+                <button type="button">Видалити</button>
+            </td>
+        </tr>
+
+        <tr>
+            <td>2</td>
+            <td>Петренко Марія</td>
+            <td>Зал №2</td>
+            <td>Гончаренко Ігор</td>
+            <td>2026-11-21 14:00</td>
+            <td>2026-11-21 15:30</td>
+            <td>900.00</td>
+            <td>Завершено</td>
+            <td>
+                <a href="booking_edit.html?id=2"
+                   class="edit-btn">
+                    Редагувати
+                </a>
+                <button type="button">Видалити</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+    <div class="pagination">
+        <button type="button">Назад</button>
+        <span>Сторінка 1</span>
+        <button type="button">Далі</button>
+    </div>
+</main>
+
+</body>
+</html>

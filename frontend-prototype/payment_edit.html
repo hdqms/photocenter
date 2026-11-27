@@ -1,0 +1,133 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Фотоцентр — Редагування оплати</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header>
+    <h1>Фотоцентр</h1>
+    <p>Система управління базою даних</p>
+</header>
+
+<nav>
+    <a href="index.html">Клієнти</a>
+    <a href="services.html">Послуги</a>
+    <a href="orders.html">Замовлення</a>
+    <a href="bookings.html">Бронювання</a>
+    <a href="employees.html">Працівники</a>
+    <a href="halls.html">Фотозали</a>
+    <a href="roles.html">Посади</a>
+    <a href="categories.html">Категорії послуг</a>
+    <a href="formats.html">Формати друку</a>
+    <a href="order_items.html">Позиції замовлень</a>
+    <a href="payments.html">Оплати</a>
+    <a href="print_files.html">Файли друку</a>
+</nav>
+
+<main>
+    <h2>Редагування оплати</h2>
+
+    <form action="#" method="post" class="client-form">
+<input type="hidden" id="payment_id" name="payment_id">
+
+<label for="order_id">Замовлення</label>
+<select id="order_id" name="order_id" required>
+    <option value="">Оберіть замовлення</option>
+    <option value="1">Замовлення №1</option>
+    <option value="2">Замовлення №2</option>
+    <option value="3">Замовлення №3</option>
+</select>
+
+<label for="amount">Сума оплати, грн</label>
+<input type="number"
+       id="amount"
+       name="amount"
+       min="0.01"
+       max="99999999.99"
+       step="0.01"
+       required>
+
+<label for="payment_date">Дата й час оплати</label>
+<input type="datetime-local"
+       id="payment_date"
+       name="payment_date"
+       required>
+
+<label for="payment_type">Спосіб оплати</label>
+<select id="payment_type"
+        name="payment_type"
+        required>
+    <option value="">Оберіть спосіб оплати</option>
+    <option value="Картка">Картка</option>
+    <option value="Готівка">Готівка</option>
+</select>
+
+
+
+        <div class="form-actions">
+            <button type="submit">Зберегти зміни</button>
+
+           <a href="payments.html" class="cancel-btn">
+    Скасувати
+</a>
+        </div>
+    </form>
+</main>
+
+<script>
+    const payments = {
+        1: {
+            order_id: "1",
+            amount: "180.00",
+            payment_date: "2026-10-01T09:20",
+            payment_type: "Картка"
+        },
+        2: {
+            order_id: "2",
+            amount: "195.00",
+            payment_date: "2026-10-02T10:30",
+            payment_type: "Готівка"
+        },
+        3: {
+            order_id: "3",
+            amount: "100.00",
+            payment_date: "2026-10-03T11:40",
+            payment_type: "Картка"
+        }
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    const paymentId = params.get("id");
+    const payment = payments[paymentId];
+
+    if (payment) {
+        document.getElementById("payment_id").value =
+            paymentId;
+
+        document.getElementById("order_id").value =
+            payment.order_id;
+
+        document.getElementById("amount").value =
+            payment.amount;
+
+        document.getElementById("payment_date").value =
+            payment.payment_date;
+
+        document.getElementById("payment_type").value =
+            payment.payment_type;
+    } else {
+        document.querySelector(".client-form").hidden = true;
+
+        document.querySelector("main h2").textContent =
+            "Оплату не знайдено";
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,87 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Фотоцентр — Клієнти</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header>
+    <h1>Фотоцентр</h1>
+    <p>Система управління базою даних</p>
+</header>
+
+<nav>
+    <a href="index.html">Клієнти</a>
+    <a href="services.html">Послуги</a>
+    <a href="orders.html">Замовлення</a>
+    <a href="bookings.html">Бронювання</a>
+    <a href="employees.html">Працівники</a>
+    <a href="halls.html">Фотозали</a>
+    <a href="roles.html">Посади</a>
+    <a href="categories.html">Категорії послуг</a>
+    <a href="formats.html">Формати друку</a>
+    <a href="order_items.html">Позиції замовлень</a>
+    <a href="payments.html">Оплати</a>
+    <a href="print_files.html">Файли друку</a>
+</nav>
+
+<main>
+    <h2>Список клієнтів</h2>
+
+    <div class="toolbar">
+        <input type="search"
+               placeholder="Пошук клієнта за ПІБ">
+        <button type="button">Знайти</button>
+        <a href="client_form.html" class="add-btn">
+    Додати клієнта
+</a>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>ПІБ</th>
+                <th>Дії</th>
+            </tr>
+        </thead>
+        
+<tbody>
+    <tr>
+        <td>1</td>
+        <td>Іваненко Іван</td>
+        <td>
+            <a href="client_edit.html?id=1" class="edit-btn">
+                Редагувати
+            </a>
+            <button type="button">Видалити</button>
+        </td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>Петренко Марія</td>
+        <td>
+            <a href="client_edit.html?id=2" class="edit-btn">
+                Редагувати
+            </a>
+            <button type="button">Видалити</button>
+        </td>
+    </tr>
+</tbody>
+
+    </table>
+
+    <div class="pagination">
+        <button type="button">Назад</button>
+        <span>Сторінка 1</span>
+        <button type="button">Далі</button>
+    </div>
+</main>
+
+</body>
+</html>

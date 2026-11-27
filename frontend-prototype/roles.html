@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Фотоцентр — Посади</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header>
+    <h1>Фотоцентр</h1>
+    <p>Система управління базою даних</p>
+</header>
+
+<nav>
+    <a href="index.html">Клієнти</a>
+    <a href="services.html">Послуги</a>
+    <a href="orders.html">Замовлення</a>
+    <a href="bookings.html">Бронювання</a>
+    <a href="employees.html">Працівники</a>
+    <a href="halls.html">Фотозали</a>
+    <a href="roles.html">Посади</a>
+    <a href="categories.html">Категорії послуг</a>
+    <a href="formats.html">Формати друку</a>
+    <a href="order_items.html">Позиції замовлень</a>
+    <a href="payments.html">Оплати</a>
+    <a href="print_files.html">Файли друку</a>
+</nav>
+
+<main>
+    <h2>Список посад</h2>
+
+    <
+<div class="toolbar">
+    <input type="search"
+           placeholder="Пошук посади за назвою">
+
+    <button type="button">Знайти</button>
+
+    <a href="role_form.html" class="add-btn">
+        Додати посаду
+    </a>
+</div>
+
+
+    
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Назва посади</th>
+            <th>Опис</th>
+            <th>Дії</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            <td>1</td>
+            <td>Адміністратор</td>
+            <td>Керує послугами та розкладом</td>
+            <td>
+                <a href="role_edit.html?id=1"
+                   class="edit-btn">Редагувати</a>
+                <button type="button">Видалити</button>
+            </td>
+        </tr>
+
+        <tr>
+            <td>2</td>
+            <td>Менеджер</td>
+            <td>Оформлює замовлення й бронювання</td>
+            <td>
+                <a href="role_edit.html?id=2"
+                   class="edit-btn">Редагувати</a>
+                <button type="button">Видалити</button>
+            </td>
+        </tr>
+
+        <tr>
+            <td>3</td>
+            <td>Друкар</td>
+            <td>Виконує друк замовлень</td>
+            <td>
+                <a href="role_edit.html?id=3"
+                   class="edit-btn">Редагувати</a>
+                <button type="button">Видалити</button>
+            </td>
+        </tr>
+
+        <tr>
+            <td>4</td>
+            <td>Фотограф</td>
+            <td>Проводить фотосесії</td>
+            <td>
+                <a href="role_edit.html?id=4"
+                   class="edit-btn">Редагувати</a>
+                <button type="button">Видалити</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+    <div class="pagination">
+        <button type="button">Назад</button>
+        <span>Сторінка 1</span>
+        <button type="button">Далі</button>
+    </div>
+</main>
+
+</body>
+</html>

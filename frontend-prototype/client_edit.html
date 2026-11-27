@@ -1,0 +1,110 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Фотоцентр — Редагування клієнта</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header>
+    <h1>Фотоцентр</h1>
+    <p>Система управління базою даних</p>
+</header>
+
+<nav>
+    <a href="index.html">Клієнти</a>
+    <a href="services.html">Послуги</a>
+    <a href="orders.html">Замовлення</a>
+    <a href="bookings.html">Бронювання</a>
+    <a href="employees.html">Працівники</a>
+    <a href="halls.html">Фотозали</a>
+    <a href="roles.html">Посади</a>
+    <a href="categories.html">Категорії послуг</a>
+    <a href="formats.html">Формати друку</a>
+    <a href="order_items.html">Позиції замовлень</a>
+    <a href="payments.html">Оплати</a>
+    <a href="print_files.html">Файли друку</a>
+</nav>
+
+<main>
+    <h2>Редагування клієнта</h2>
+
+    <form action="#" method="post" class="client-form">
+
+        <input type="hidden" name="client_id" value="1">
+
+        <label for="full_name">ПІБ клієнта</label>
+        <input
+            type="text"
+            id="full_name"
+            name="full_name"
+            value="Іваненко Іван"
+            maxlength="100"
+            required
+        >
+
+        <label for="phone">Номер телефону</label>
+        <input
+            type="tel"
+            id="phone"
+            name="phone"
+            value="+380670001001"
+            maxlength="20"
+            required
+        >
+
+        <label for="birth_date">Дата народження</label>
+        <input
+            type="date"
+            id="birth_date"
+            name="birth_date"
+            value="2002-03-12"
+        >
+
+        <div class="form-actions">
+            <button type="submit">Зберегти зміни</button>
+
+            <a href="index.html" class="cancel-btn">
+                Скасувати
+            </a>
+        </div>
+
+    </form>
+</main>
+
+<script>
+    const clients = {
+        1: {
+            full_name: "Іваненко Іван",
+            phone: "+380670001001",
+            birth_date: "2002-03-12"
+        },
+        2: {
+            full_name: "Петренко Марія",
+            phone: "+380670001002",
+            birth_date: "1999-11-25"
+        }
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    const clientId = params.get("id");
+    const client = clients[clientId];
+
+    if (client) {
+        document.querySelector('[name="client_id"]').value = clientId;
+        document.getElementById("full_name").value = client.full_name;
+        document.getElementById("phone").value = client.phone;
+        document.getElementById("birth_date").value = client.birth_date;
+    } else {
+        document.querySelector(".client-form").hidden = true;
+        document.querySelector("main h2").textContent =
+            "Клієнта не знайдено";
+    }
+</script>
+
+</body>
+</html>

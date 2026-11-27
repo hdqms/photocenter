@@ -1,0 +1,149 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Фотоцентр — Редагування файлу друку</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header>
+    <h1>Фотоцентр</h1>
+    <p>Система управління базою даних</p>
+</header>
+
+<nav>
+    <a href="index.html">Клієнти</a>
+    <a href="services.html">Послуги</a>
+    <a href="orders.html">Замовлення</a>
+    <a href="bookings.html">Бронювання</a>
+    <a href="employees.html">Працівники</a>
+    <a href="halls.html">Фотозали</a>
+    <a href="roles.html">Посади</a>
+    <a href="categories.html">Категорії послуг</a>
+    <a href="formats.html">Формати друку</a>
+    <a href="order_items.html">Позиції замовлень</a>
+    <a href="payments.html">Оплати</a>
+    <a href="print_files.html">Файли друку</a>
+    
+</nav>
+
+<main>
+    <h2>Редагування файлу друку</h2>
+
+    <form action="#" method="post" class="client-form">
+        <input type="hidden" id="file_id" name="file_id">
+
+
+
+<label for="item_id">Позиція замовлення</label>
+<select id="item_id" name="item_id" required>
+    <option value="">Оберіть позицію</option>
+    <option value="1">Позиція №1</option>
+    <option value="2">Позиція №2</option>
+    <option value="3">Позиція №3</option>
+</select>
+
+<label for="format_id">Формат друку</label>
+<select id="format_id" name="format_id" required>
+    <option value="">Оберіть формат</option>
+    <option value="1">10x15, Глянцевий</option>
+    <option value="2">10x15, Матовий</option>
+    <option value="3">15x21, Глянцевий</option>
+    <option value="4">20x30, Матовий</option>
+    <option value="5">A4, Глянцевий</option>
+</select>
+
+<label for="file_path">Шлях до файлу</label>
+<input type="text"
+       id="file_path"
+       name="file_path"
+       maxlength="255"
+       placeholder="uploads/order01/photo01.jpg"
+       required>
+
+<label for="copies_count">Кількість копій</label>
+<input type="number"
+       id="copies_count"
+       name="copies_count"
+       min="1"
+       step="1"
+       required>
+
+<label for="crop_type">Тип обрізання</label>
+<select id="crop_type" name="crop_type" required>
+    <option value="">Оберіть тип обрізання</option>
+    <option value="По центру">По центру</option>
+    <option value="Без обрізки">Без обрізки</option>
+    <option value="Під формат">Під формат</option>
+</select>
+
+
+        <div class="form-actions">
+            <button type="submit">Зберегти зміни</button>
+
+          <a href="print_files.html" class="cancel-btn">
+    Скасувати
+</a>
+        </div>
+    </form>
+</main>
+
+<script>
+    const printFiles = {
+        1: {
+            item_id: "1",
+            format_id: "1",
+            file_path: "uploads/order01/photo01.jpg",
+            copies_count: "10",
+            crop_type: "По центру"
+        },
+        2: {
+            item_id: "2",
+            format_id: "4",
+            file_path: "uploads/order01/photo02.jpg",
+            copies_count: "1",
+            crop_type: "Без обрізки"
+        },
+        3: {
+            item_id: "3",
+            format_id: "3",
+            file_path: "uploads/order02/photo01.jpg",
+            copies_count: "3",
+            crop_type: "По центру"
+        }
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    const fileId = params.get("id");
+    const printFile = printFiles[fileId];
+
+    if (printFile) {
+        document.getElementById("file_id").value = fileId;
+
+        document.getElementById("item_id").value =
+            printFile.item_id;
+
+        document.getElementById("format_id").value =
+            printFile.format_id;
+
+        document.getElementById("file_path").value =
+            printFile.file_path;
+
+        document.getElementById("copies_count").value =
+            printFile.copies_count;
+
+        document.getElementById("crop_type").value =
+            printFile.crop_type;
+    } else {
+        document.querySelector(".client-form").hidden = true;
+        document.querySelector("main h2").textContent =
+            "Файл друку не знайдено";
+    }
+</script>
+
+</body>
+</html>

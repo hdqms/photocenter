@@ -1,0 +1,103 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Фотоцентр — Замовлення</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header>
+    <h1>Фотоцентр</h1>
+    <p>Система управління базою даних</p>
+</header>
+
+<nav>
+    <a href="index.html">Клієнти</a>
+    <a href="services.html">Послуги</a>
+    <a href="orders.html">Замовлення</a>
+    <a href="bookings.html">Бронювання</a>
+    <a href="employees.html">Працівники</a>
+    <a href="halls.html">Фотозали</a>
+    <a href="roles.html">Посади</a>
+    <a href="categories.html">Категорії послуг</a>
+    <a href="formats.html">Формати друку</a>
+    <a href="order_items.html">Позиції замовлень</a>
+    <a href="payments.html">Оплати</a>
+    <a href="print_files.html">Файли друку</a>
+</nav>
+
+<main>
+    <h2>Список замовлень</h2>
+
+    <div class="toolbar">
+        <input type="search"
+               placeholder="Пошук замовлення">
+
+        <button type="button">Знайти</button>
+
+        <a href="order_form.html" class="add-btn">
+            Додати замовлення
+        </a>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Клієнт</th>
+                <th>Працівник</th>
+                <th>Дата</th>
+                <th>Сума, грн</th>
+                <th>Статус</th>
+                <th>Дії</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>Іваненко Іван</td>
+                <td>Романенко Наталія</td>
+                <td>2026-11-10 12:30</td>
+                <td>350.00</td>
+                <td>Виконується</td>
+                <td>
+                    <a href="order_edit.html?id=1"
+                       class="edit-btn">
+                        Редагувати
+                    </a>
+                    <button type="button">Видалити</button>
+                </td>
+            </tr>
+
+            <tr>
+                <td>2</td>
+                <td>Петренко Марія</td>
+                <td>Гончаренко Ігор</td>
+                <td>2026-11-11 14:00</td>
+                <td>800.00</td>
+                <td>Виконано</td>
+                <td>
+                    <a href="order_edit.html?id=2"
+                       class="edit-btn">
+                        Редагувати
+                    </a>
+                    <button type="button">Видалити</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="pagination">
+        <button type="button">Назад</button>
+        <span>Сторінка 1</span>
+        <button type="button">Далі</button>
+    </div>
+</main>
+
+</body>
+</html>

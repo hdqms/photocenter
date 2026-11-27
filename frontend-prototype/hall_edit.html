@@ -1,0 +1,113 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Фотоцентр — Редагування фотозалу</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header>
+    <h1>Фотоцентр</h1>
+    <p>Система управління базою даних</p>
+</header>
+
+<nav>
+    <a href="index.html">Клієнти</a>
+    <a href="services.html">Послуги</a>
+    <a href="orders.html">Замовлення</a>
+    <a href="bookings.html">Бронювання</a>
+    <a href="employees.html">Працівники</a>
+    <a href="halls.html">Фотозали</a>
+    <a href="roles.html">Посади</a>
+    <a href="categories.html">Категорії послуг</a>
+    <a href="formats.html">Формати друку</a>
+    <a href="order_items.html">Позиції замовлень</a>
+    <a href="payments.html">Оплати</a>
+    <a href="print_files.html">Файли друку</a>
+</nav>
+
+<main>
+    <h2>Редагування фотозалу</h2>
+
+    <form action="#" method="post" class="client-form">
+        <input type="hidden" id="hall_id" name="hall_id">
+
+        <label for="hall_name">Назва фотозалу</label>
+        <input type="text"
+               id="hall_name"
+               name="hall_name"
+               maxlength="50"
+               required>
+
+        <label for="hourly_rate">
+            Вартість оренди за годину, грн
+        </label>
+        <input type="number"
+               id="hourly_rate"
+               name="hourly_rate"
+               min="0"
+               max="999999.99"
+               step="0.01"
+               required>
+
+        <label for="capacity">Місткість, осіб</label>
+        <input type="number"
+               id="capacity"
+               name="capacity"
+               min="1"
+               step="1"
+               required>
+
+        <div class="form-actions">
+            <button type="submit">Зберегти зміни</button>
+
+            <a href="halls.html" class="cancel-btn">
+                Скасувати
+            </a>
+        </div>
+    </form>
+</main>
+
+<script>
+    const halls = {
+        1: {
+            hall_name: "Зал №1",
+            hourly_rate: "500.00",
+            capacity: "8"
+        },
+        2: {
+            hall_name: "Зал №2",
+            hourly_rate: "600.00",
+            capacity: "12"
+        }
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    const hallId = params.get("id");
+    const hall = halls[hallId];
+
+    if (hall) {
+        document.getElementById("hall_id").value = hallId;
+
+        document.getElementById("hall_name").value =
+            hall.hall_name;
+
+        document.getElementById("hourly_rate").value =
+            hall.hourly_rate;
+
+        document.getElementById("capacity").value =
+            hall.capacity;
+    } else {
+        document.querySelector(".client-form").hidden = true;
+
+        document.querySelector("main h2").textContent =
+            "Фотозал не знайдено";
+    }
+</script>
+
+</body>
+</html>

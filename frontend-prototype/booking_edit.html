@@ -1,0 +1,174 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Фотоцентр — Редагування бронювання</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header>
+    <h1>Фотоцентр</h1>
+    <p>Система управління базою даних</p>
+</header>
+
+<nav>
+    <a href="index.html">Клієнти</a>
+    <a href="services.html">Послуги</a>
+    <a href="orders.html">Замовлення</a>
+    <a href="bookings.html">Бронювання</a>
+    <a href="employees.html">Працівники</a>
+    <a href="halls.html">Фотозали</a>
+    <a href="roles.html">Посади</a>
+    <a href="categories.html">Категорії послуг</a>
+    <a href="formats.html">Формати друку</a>
+    <a href="order_items.html">Позиції замовлень</a>
+    <a href="payments.html">Оплати</a>
+    <a href="print_files.html">Файли друку</a>
+</nav>
+
+<main>
+    <h2>Редагування бронювання</h2>
+
+    <form action="#" method="post" class="client-form">
+         <input type="hidden" id="booking_id" name="booking_id">
+
+        <label for="client_id">Клієнт</label>
+        <select id="client_id" name="client_id" required>
+            <option value="">Оберіть клієнта</option>
+            <option value="1">Іваненко Іван</option>
+            <option value="2">Петренко Марія</option>
+        </select>
+
+        <label for="hall_id">Фотозал</label>
+        <select id="hall_id" name="hall_id" required>
+            <option value="">Оберіть фотозал</option>
+            <option value="1">Зал №1</option>
+            <option value="2">Зал №2</option>
+        </select>
+
+        <label for="employee_id">Працівник</label>
+        <select id="employee_id" name="employee_id" required>
+            <option value="">Оберіть працівника</option>
+            <option value="1">Романенко Наталія</option>
+            <option value="2">Гончаренко Ігор</option>
+            <option value="3">Дяченко Оксана</option>
+        </select>
+
+        <label for="start_time">Початок бронювання</label>
+        <input type="datetime-local"
+               id="start_time"
+               name="start_time"
+               required>
+
+        <label for="end_time">Завершення бронювання</label>
+        <input type="datetime-local"
+               id="end_time"
+               name="end_time"
+               required>
+
+        <label for="total_cost">Загальна вартість, грн</label>
+        <input type="number"
+               id="total_cost"
+               name="total_cost"
+               min="0"
+               step="0.01"
+               required>
+
+        <label for="status">Статус бронювання</label>
+        <select id="status" name="status" required>
+            <option value="">Оберіть статус</option>
+            <option value="Очікується">Очікується</option>
+            <option value="Підтверджено">Підтверджено</option>
+            <option value="Завершено">Завершено</option>
+            <option value="Скасовано">Скасовано</option>
+        </select>
+
+        <div class="form-actions">
+            <button type="submit">Зберегти зміни</button>
+
+            <a href="bookings.html" class="cancel-btn">
+                Скасувати
+            </a>
+        </div>
+
+    </form>
+   
+</main>
+
+<script>
+    const bookings = {
+        1: {
+            client_id: "1",
+            hall_id: "1",
+            employee_id: "1",
+            start_time: "2026-11-20T10:00",
+            end_time: "2026-11-20T12:00",
+            total_cost: "1000.00",
+            status: "Підтверджено"
+        },
+        2: {
+            client_id: "2",
+            hall_id: "2",
+            employee_id: "2",
+            start_time: "2026-11-21T14:00",
+            end_time: "2026-11-21T15:30",
+            total_cost: "900.00",
+            status: "Завершено"
+        }
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    const bookingId = params.get("id");
+    const booking = bookings[bookingId];
+
+    if (booking) {
+        document.getElementById("booking_id").value = bookingId;
+        document.getElementById("client_id").value = booking.client_id;
+        document.getElementById("hall_id").value = booking.hall_id;
+        document.getElementById("employee_id").value = booking.employee_id;
+        document.getElementById("start_time").value = booking.start_time;
+        document.getElementById("end_time").value = booking.end_time;
+        document.getElementById("total_cost").value = booking.total_cost;
+        document.getElementById("status").value = booking.status;
+    } else {
+        document.querySelector(".client-form").hidden = true;
+        document.querySelector("main h2").textContent =
+            "Бронювання не знайдено";
+    }
+</script>
+
+<script>
+    const form = document.querySelector(".client-form");
+    const startTime = document.getElementById("start_time");
+    const endTime = document.getElementById("end_time");
+
+    function validateDates() {
+        if (startTime.value && endTime.value &&
+            endTime.value <= startTime.value) {
+            endTime.setCustomValidity(
+                "Час завершення повинен бути пізнішим за час початку"
+            );
+        } else {
+            endTime.setCustomValidity("");
+        }
+    }
+
+    startTime.addEventListener("change", validateDates);
+    endTime.addEventListener("change", validateDates);
+
+    form.addEventListener("submit", function(event) {
+        event.preventDefault();
+        validateDates();
+
+        if (form.reportValidity()) {
+            alert("Форму перевірено. Збереження в БД буде додано пізніше.");
+        }
+    });
+</script>
+
+</body>
+</html>

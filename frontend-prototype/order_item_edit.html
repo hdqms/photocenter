@@ -1,0 +1,169 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Фотоцентр — Редагування позиції</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header>
+    <h1>Фотоцентр</h1>
+    <p>Система управління базою даних</p>
+</header>
+
+<nav>
+    <a href="index.html">Клієнти</a>
+    <a href="services.html">Послуги</a>
+    <a href="orders.html">Замовлення</a>
+    <a href="bookings.html">Бронювання</a>
+    <a href="employees.html">Працівники</a>
+    <a href="halls.html">Фотозали</a>
+    <a href="roles.html">Посади</a>
+    <a href="categories.html">Категорії послуг</a>
+    <a href="formats.html">Формати друку</a>
+    <a href="order_items.html">Позиції замовлень</a>
+    <a href="payments.html">Оплати</a>
+    <a href="print_files.html">Файли друку</a>
+</nav>
+
+<main>
+    <h2>Редагування позиції замовлення</h2>
+
+    <form action="#" method="post" class="client-form">
+<input type="hidden" id="item_id" name="item_id">
+        
+
+
+<label for="order_id">Замовлення</label>
+<select id="order_id" name="order_id" required>
+    <option value="">Оберіть замовлення</option>
+    <option value="1">Замовлення №1</option>
+    <option value="2">Замовлення №2</option>
+</select>
+
+<label for="service_id">Послуга</label>
+<select id="service_id" name="service_id" required>
+    <option value="">Оберіть послугу</option>
+    <option value="1">Друк фото 10x15</option>
+    <option value="2">Друк фото 15x21</option>
+    <option value="8">Ретуш фотографії</option>
+</select>
+
+<label for="quantity">Кількість</label>
+<input type="number"
+       id="quantity"
+       name="quantity"
+       min="1"
+       step="1"
+       required>
+
+<label for="unit_price">Ціна за одиницю, грн</label>
+<input type="number"
+       id="unit_price"
+       name="unit_price"
+       min="0"
+       max="999999.99"
+       step="0.01"
+       required>
+
+<label for="item_total">Загальна вартість, грн</label>
+<input type="number"
+       id="item_total"
+       name="item_total"
+       step="0.01"
+       readonly>
+
+
+
+        <div class="form-actions">
+            <button type="submit">Зберегти зміни</button>
+
+           <a href="order_items.html" class="cancel-btn">
+    Скасувати
+</a>
+        </div>
+    </form>
+</main>
+
+<script>
+    const orderItems = {
+        1: {
+            order_id: "1",
+            service_id: "1",
+            quantity: "10",
+            unit_price: "12.00"
+        },
+        2: {
+            order_id: "1",
+            service_id: "2",
+            quantity: "2",
+            unit_price: "25.00"
+        },
+        3: {
+            order_id: "2",
+            service_id: "8",
+            quantity: "1",
+            unit_price: "90.00"
+        }
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    const itemId = params.get("id");
+    const item = orderItems[itemId];
+
+    if (item) {
+        document.getElementById("item_id").value =
+            itemId;
+
+        document.getElementById("order_id").value =
+            item.order_id;
+
+        document.getElementById("service_id").value =
+            item.service_id;
+
+        document.getElementById("quantity").value =
+            item.quantity;
+
+        document.getElementById("unit_price").value =
+            item.unit_price;
+
+        document.getElementById("item_total").value =
+            (Number(item.quantity) *
+             Number(item.unit_price)).toFixed(2);
+    } else {
+        document.querySelector(".client-form").hidden = true;
+        document.querySelector("main h2").textContent =
+            "Позицію замовлення не знайдено";
+    }
+</script>
+
+<script>
+    const quantity = document.getElementById("quantity");
+    const unitPrice = document.getElementById("unit_price");
+    const itemTotal = document.getElementById("item_total");
+
+    function calculateTotal() {
+        const count = Number(quantity.value);
+        const price = Number(unitPrice.value);
+
+        if (quantity.value !== "" &&
+            unitPrice.value !== "" &&
+            count >= 1 &&
+            price >= 0) {
+
+            itemTotal.value = (count * price).toFixed(2);
+        } else {
+            itemTotal.value = "";
+        }
+    }
+
+    quantity.addEventListener("input", calculateTotal);
+    unitPrice.addEventListener("input", calculateTotal);
+</script>
+
+</body>
+</html>

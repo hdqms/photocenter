@@ -1,0 +1,136 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Фотоцентр — Редагування замовлення</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header>
+    <h1>Фотоцентр</h1>
+    <p>Система управління базою даних</p>
+</header>
+
+<nav>
+    <a href="index.html">Клієнти</a>
+    <a href="services.html">Послуги</a>
+    <a href="orders.html">Замовлення</a>
+    <a href="bookings.html">Бронювання</a>
+    <a href="employees.html">Працівники</a>
+    <a href="halls.html">Фотозали</a>
+    <a href="roles.html">Посади</a>
+    <a href="categories.html">Категорії послуг</a>
+    <a href="formats.html">Формати друку</a>
+    <a href="order_items.html">Позиції замовлень</a>
+    <a href="payments.html">Оплати</a>
+    <a href="print_files.html">Файли друку</a>
+</nav>
+
+<main>
+    <h2>Редагування замовлення</h2>
+
+    <form action="#" method="post" class="client-form">
+    <input type="hidden" id="order_id" name="order_id">
+    
+        <label for="client_id">Клієнт</label>
+        <select id="client_id" name="client_id" required>
+            <option value="">Оберіть клієнта</option>
+            <option value="1">Іваненко Іван</option>
+            <option value="2">Петренко Марія</option>
+        </select>
+
+        <label for="employee_id">Працівник</label>
+        <select id="employee_id" name="employee_id" required>
+            <option value="">Оберіть працівника</option>
+            <option value="1">Романенко Наталія</option>
+            <option value="2">Гончаренко Ігор</option>
+            <option value="3">Дяченко Оксана</option>
+        </select>
+
+        <label for="order_date">Дата й час замовлення</label>
+        <input type="datetime-local"
+               id="order_date"
+               name="order_date"
+               required>
+
+        <label for="total_amount">Загальна сума, грн</label>
+        <input type="number"
+               id="total_amount"
+               name="total_amount"
+               min="0"
+               step="0.01"
+               required>
+
+        <label for="status">Статус замовлення</label>
+        <select id="status" name="status" required>
+            <option value="">Оберіть статус</option>
+            <option value="Нове">Нове</option>
+            <option value="Виконується">Виконується</option>
+            <option value="Виконано">Виконано</option>
+            <option value="Скасовано">Скасовано</option>
+        </select>
+
+        <div class="form-actions">
+            <button type="submit">Зберегти</button>
+
+            <a href="orders.html" class="cancel-btn">
+                Скасувати
+            </a>
+        </div>
+    </form>
+
+</main>
+
+<script>
+    const orders = {
+        1: {
+            client_id: "1",
+            employee_id: "1",
+            order_date: "2026-11-10T12:30",
+            total_amount: "350.00",
+            status: "Виконується"
+        },
+        2: {
+            client_id: "2",
+            employee_id: "2",
+            order_date: "2026-11-11T14:00",
+            total_amount: "800.00",
+            status: "Виконано"
+        }
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    const orderId = params.get("id");
+    const order = orders[orderId];
+
+    if (order) {
+        document.getElementById("order_id").value = orderId;
+
+        document.getElementById("client_id").value =
+            order.client_id;
+
+        document.getElementById("employee_id").value =
+            order.employee_id;
+
+        document.getElementById("order_date").value =
+            order.order_date;
+
+        document.getElementById("total_amount").value =
+            order.total_amount;
+
+        document.getElementById("status").value =
+            order.status;
+    } else {
+        document.querySelector(".client-form").hidden = true;
+
+        document.querySelector("main h2").textContent =
+            "Замовлення не знайдено";
+    }
+</script>
+
+</body>
+</html>

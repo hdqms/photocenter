@@ -1,0 +1,112 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Фотоцентр — Оплати</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header>
+    <h1>Фотоцентр</h1>
+    <p>Система управління базою даних</p>
+</header>
+
+<nav>
+    <a href="index.html">Клієнти</a>
+    <a href="services.html">Послуги</a>
+    <a href="orders.html">Замовлення</a>
+    <a href="bookings.html">Бронювання</a>
+    <a href="employees.html">Працівники</a>
+    <a href="halls.html">Фотозали</a>
+    <a href="roles.html">Посади</a>
+    <a href="categories.html">Категорії послуг</a>
+    <a href="formats.html">Формати друку</a>
+    <a href="order_items.html">Позиції замовлень</a>
+    <a href="payments.html">Оплати</a>
+    <a href="print_files.html">Файли друку</a>
+</nav>
+
+<main>
+    <h2>Список оплат</h2>
+
+    
+<div class="toolbar">
+    <input type="search"
+           placeholder="Пошук оплати за номером замовлення">
+
+    <button type="button">Знайти</button>
+
+    <a href="payment_form.html" class="add-btn">
+        Додати оплату
+    </a>
+</div>
+
+    
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Замовлення</th>
+            <th>Сума, грн</th>
+            <th>Дата оплати</th>
+            <th>Спосіб оплати</th>
+            <th>Дії</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            <td>1</td>
+            <td>Замовлення №1</td>
+            <td>180.00</td>
+            <td>2026-10-01 09:20</td>
+            <td>Картка</td>
+            <td>
+                <a href="payment_edit.html?id=1"
+                   class="edit-btn">Редагувати</a>
+                <button type="button">Видалити</button>
+            </td>
+        </tr>
+
+        <tr>
+            <td>2</td>
+            <td>Замовлення №2</td>
+            <td>195.00</td>
+            <td>2026-10-02 10:30</td>
+            <td>Готівка</td>
+            <td>
+                <a href="payment_edit.html?id=2"
+                   class="edit-btn">Редагувати</a>
+                <button type="button">Видалити</button>
+            </td>
+        </tr>
+
+        <tr>
+            <td>3</td>
+            <td>Замовлення №3</td>
+            <td>100.00</td>
+            <td>2026-10-03 11:40</td>
+            <td>Картка</td>
+            <td>
+                <a href="payment_edit.html?id=3"
+                   class="edit-btn">Редагувати</a>
+                <button type="button">Видалити</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+    <div class="pagination">
+        <button type="button">Назад</button>
+        <span>Сторінка 1</span>
+        <button type="button">Далі</button>
+    </div>
+</main>
+
+</body>
+</html>

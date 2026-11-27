@@ -1,0 +1,113 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Фотоцентр — Редагування формату</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header>
+    <h1>Фотоцентр</h1>
+    <p>Система управління базою даних</p>
+</header>
+
+<nav>
+    <a href="index.html">Клієнти</a>
+    <a href="services.html">Послуги</a>
+    <a href="orders.html">Замовлення</a>
+    <a href="bookings.html">Бронювання</a>
+    <a href="employees.html">Працівники</a>
+    <a href="halls.html">Фотозали</a>
+    <a href="roles.html">Посади</a>
+    <a href="categories.html">Категорії послуг</a>
+    <a href="formats.html">Формати друку</a>
+    <a href="order_items.html">Позиції замовлень</a>
+    <a href="payments.html">Оплати</a>
+    <a href="print_files.html">Файли друку</a>
+</nav>
+
+<main>
+    <h2>Редагування формату друку</h2>
+
+    <form action="#" method="post" class="client-form">
+<input type="hidden" id="format_id" name="format_id">
+        
+
+<label for="format_name">Назва формату</label>
+<input type="text"
+       id="format_name"
+       name="format_name"
+       maxlength="20"
+       placeholder="Наприклад, 10x15"
+       required>
+
+<label for="paper_type">Тип паперу</label>
+<input type="text"
+       id="paper_type"
+       name="paper_type"
+       maxlength="30"
+       placeholder="Наприклад, Глянцевий"
+       required>
+
+
+        <div class="form-actions">
+            <button type="submit">Зберегти зміни</button>
+
+            <a href="formats.html" class="cancel-btn">
+    Скасувати
+</a>
+        </div>
+    </form>
+</main>
+
+<script>
+    const formats = {
+        1: {
+            format_name: "10x15",
+            paper_type: "Глянцевий"
+        },
+        2: {
+            format_name: "10x15",
+            paper_type: "Матовий"
+        },
+        3: {
+            format_name: "15x21",
+            paper_type: "Глянцевий"
+        },
+        4: {
+            format_name: "20x30",
+            paper_type: "Матовий"
+        },
+        5: {
+            format_name: "A4",
+            paper_type: "Глянцевий"
+        }
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    const formatId = params.get("id");
+    const format = formats[formatId];
+
+    if (format) {
+        document.getElementById("format_id").value =
+            formatId;
+
+        document.getElementById("format_name").value =
+            format.format_name;
+
+        document.getElementById("paper_type").value =
+            format.paper_type;
+    } else {
+        document.querySelector(".client-form").hidden = true;
+
+        document.querySelector("main h2").textContent =
+            "Формат не знайдено";
+    }
+</script>
+
+</body>
+</html>

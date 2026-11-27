@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Фотоцентр — Додати працівника</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header>
+    <h1>Фотоцентр</h1>
+    <p>Система управління базою даних</p>
+</header>
+
+<nav>
+    <a href="index.html">Клієнти</a>
+    <a href="services.html">Послуги</a>
+    <a href="employees.html">Працівники</a>
+    <a href="orders.html">Замовлення</a>
+    <a href="bookings.html">Бронювання</a>
+    <a href="halls.html">Фотозали</a>
+    <a href="roles.html">Посади</a>
+    <a href="categories.html">Категорії послуг</a>
+    <a href="formats.html">Формати друку</a>
+    <a href="order_items.html">Позиції замовлень</a>
+    <a href="payments.html">Оплати</a>
+    <a href="print_files.html">Файли друку</a>
+</nav>
+
+<main>
+    <h2>Додати працівника</h2>
+
+    <form action="#" method="post" class="client-form">
+
+        <label for="full_name">ПІБ працівника</label>
+        <input type="text"
+               id="full_name"
+               name="full_name"
+               maxlength="100"
+               required>
+
+        <label for="role_id">Посада</label>
+        <select id="role_id" name="role_id" required>
+            <option value="">Оберіть посаду</option>
+            <option value="1">Адміністратор</option>
+            <option value="2">Менеджер</option>
+            <option value="3">Друкар</option>
+            <option value="4">Фотограф</option>
+        </select>
+
+        <label for="phone">Номер телефону</label>
+        <input type="tel"
+               id="phone"
+               name="phone"
+               maxlength="20">
+
+        <div class="form-actions">
+            <button type="submit">Зберегти</button>
+            <a href="employees.html" class="cancel-btn">
+                Скасувати
+            </a>
+        </div>
+
+    </form>
+</main>
+
+</body>
+</html>

@@ -1,0 +1,102 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Фотоцентр — Редагування категорії</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header>
+    <h1>Фотоцентр</h1>
+    <p>Система управління базою даних</p>
+</header>
+
+<nav>
+    <a href="index.html">Клієнти</a>
+    <a href="services.html">Послуги</a>
+    <a href="orders.html">Замовлення</a>
+    <a href="bookings.html">Бронювання</a>
+    <a href="employees.html">Працівники</a>
+    <a href="halls.html">Фотозали</a>
+    <a href="roles.html">Посади</a>
+    <a href="categories.html">Категорії послуг</a>
+    <a href="formats.html">Формати друку</a>
+    <a href="order_items.html">Позиції замовлень</a>
+    <a href="payments.html">Оплати</a>
+    <a href="print_files.html">Файли друку</a>
+</nav>
+
+<main>
+    <h2>Редагування категорії</h2>
+
+    <form action="#" method="post" class="client-form">
+        <input type="hidden" id="category_id" name="category_id">
+
+        
+<label for="category_name">Назва категорії</label>
+<input type="text"
+       id="category_name"
+       name="category_name"
+       maxlength="100"
+       required>
+
+
+        <label for="description">Опис категорії</label>
+        <textarea id="description"
+                  name="description"
+                  maxlength="255"
+                  rows="4"></textarea>
+
+        <div class="form-actions">
+            <button type="submit">Зберегти зміни</button>
+
+            <a href="categories.html" class="cancel-btn">
+    Скасувати
+</a>
+        </div>
+    </form>
+</main>
+
+<script>
+    const categories = {
+        1: {
+            category_name: "Фотодрук",
+            description: "Друк фотографій різних розмірів"
+        },
+        2: {
+            category_name: "Документи",
+            description: "Фото та друк для документів"
+        },
+        3: {
+            category_name: "Сувенірна продукція",
+            description: "Друк зображень на сувенірах"
+        }
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    const categoryId = params.get("id");
+    const category = categories[categoryId];
+
+    if (category) {
+        document.getElementById("category_id").value =
+            categoryId;
+
+        document.getElementById("category_name").value =
+            category.category_name;
+
+        document.getElementById("description").value =
+            category.description;
+    } else {
+        document.querySelector(".client-form").hidden = true;
+
+        document.querySelector("main h2").textContent =
+            "Категорію не знайдено";
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,119 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Фотоцентр — Позиції замовлень</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header>
+    <h1>Фотоцентр</h1>
+    <p>Система управління базою даних</p>
+</header>
+
+<nav>
+    <a href="index.html">Клієнти</a>
+    <a href="services.html">Послуги</a>
+    <a href="orders.html">Замовлення</a>
+    <a href="bookings.html">Бронювання</a>
+    <a href="employees.html">Працівники</a>
+    <a href="halls.html">Фотозали</a>
+    <a href="roles.html">Посади</a>
+    <a href="categories.html">Категорії послуг</a>
+    <a href="formats.html">Формати друку</a>
+    <a href="order_items.html">Позиції замовлень</a>
+    <a href="payments.html">Оплати</a>
+    <a href="print_files.html">Файли друку</a>
+</nav>
+
+<main>
+    <h2>Список позицій замовлень</h2>
+
+    <div class="toolbar">
+        <input type="search"
+               placeholder="Пошук позиції замовлення">
+
+        <button type="button">Знайти</button>
+
+        <a href="order_item_form.html" class="add-btn">
+            Додати позицію
+        </a>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Замовлення</th>
+                <th>Послуга</th>
+                <th>Кількість</th>
+                <th>Ціна, грн</th>
+                <th>Сума, грн</th>
+                <th>Дії</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>Замовлення №1</td>
+                <td>Друк фото 10x15</td>
+                <td>10</td>
+                <td>12.00</td>
+                <td>120.00</td>
+                <td>
+                    <a href="order_item_edit.html?id=1"
+                       class="edit-btn">
+                        Редагувати
+                    </a>
+                    <button type="button">Видалити</button>
+                </td>
+            </tr>
+
+            <tr>
+                <td>2</td>
+                <td>Замовлення №1</td>
+                <td>Друк фото 15x21</td>
+                <td>2</td>
+                <td>25.00</td>
+                <td>50.00</td>
+                <td>
+                    <a href="order_item_edit.html?id=2"
+                       class="edit-btn">
+                        Редагувати
+                    </a>
+                    <button type="button">Видалити</button>
+                </td>
+            </tr>
+
+            <tr>
+                <td>3</td>
+                <td>Замовлення №2</td>
+                <td>Ретуш фотографії</td>
+                <td>1</td>
+                <td>90.00</td>
+                <td>90.00</td>
+                <td>
+                    <a href="order_item_edit.html?id=3"
+                       class="edit-btn">
+                        Редагувати
+                    </a>
+                    <button type="button">Видалити</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="pagination">
+        <button type="button">Назад</button>
+        <span>Сторінка 1</span>
+        <button type="button">Далі</button>
+    </div>
+</main>
+
+</body>
+</html>
