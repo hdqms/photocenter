@@ -12,6 +12,34 @@ $key = $_GET['entity'];
 $table = $config['table'];
 $fields = $config['fields'];
 
+$options = [];
+
+foreach ($fields as $name => $field) {
+
+    if (isset($field['foreign'])) {
+
+        $foreign = $field['foreign'];
+
+        $foreignTable = $foreign['table'];
+        $foreignId = $foreign['id'];
+        $foreignLabel = $foreign['label'];
+
+        
+        $labelSql = foreign_label_sql($pdo, $foreign, 'f');
+
+        $stmt = $pdo->query(
+            "SELECT f.`$foreignId`, $labelSql
+            FROM `$foreignTable` f
+            ORDER BY 2"
+        );
+
+
+        $options[$name] =
+            $stmt->fetchAll(PDO::FETCH_KEY_PAIR);
+    }
+}
+
+
 $listUrl = 'list.php?entity=' . $key;
 
 $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
@@ -35,9 +63,20 @@ if ($isEdit) {
         exit('Запис не знайдено.');
     }
 
-    foreach ($fields as $name => $field) {
-        $values[$name] = $record[$name] ?? '';
+    
+foreach ($fields as $name => $field) {
+
+    $values[$name] = $record[$name] ?? '';
+
+    if ($field['type'] === 'datetime') {
+        $values[$name] = str_replace(
+            ' ',
+            'T',
+            (string) $values[$name]
+        );
     }
+}
+
 }
 
 $title = $isEdit
@@ -80,6 +119,54 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'Перевищено допустиму довжину.';
         }
 
+        if ($field['type'] === 'select') {
+
+            if (!isset($options[$name][$value])) {
+                $errors[$name] =
+                    'Оберіть наявний запис зі списку.';
+            }
+        }
+
+        if ($field['type'] === 'phone') {
+
+            if (!preg_match('/^\+?[0-9]{7,15}$/D', $value)) {
+                $errors[$name] =
+                    'Введіть коректний номер телефону.';
+            }
+        }
+
+
+        if ($field['type'] === 'datetime') {
+
+            if (strlen($value) === 16) {
+                $value .= ':00';
+            }
+
+            $validFormat = preg_match(
+                '/^[1-9][0-9]{3}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}$/D',
+                $value
+            );
+
+            $date = $validFormat
+                ? DateTimeImmutable::createFromFormat(
+                    '!Y-m-d\TH:i:s',
+                    $value
+                )
+                : false;
+
+            if (!$date ||
+                $date->format('Y-m-d\TH:i:s') !== $value) {
+
+                $errors[$name] =
+                    'Введіть коректну дату та час.';
+
+            } else {
+
+                $value = $date->format('Y-m-d H:i:s');
+            }
+        }
+
+
         if ($field['type'] === 'integer') {
 
             $number = filter_var(
@@ -101,17 +188,49 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($field['type'] === 'decimal') {
 
-            if (!preg_match(
-                '/^[0-9]{1,6}(\.[0-9]{1,2})?$/D',
-                $value
-            )) {
+            $digits = $field['digits'] ?? 6;
+
+            $maxValue =
+                str_repeat('9', $digits) . '.99';
+
+            $minValue = !empty($field['positive'])
+                ? '0.01'
+                : '0';
+
+            $pattern = '/^[0-9]{1,' . $digits .
+                       '}(\.[0-9]{1,2})?$/D';
+
+            if (!preg_match($pattern, $value)) {
+
                 $errors[$name] =
-                    'Введіть число від 0 до 999999.99.';
+                    "Введіть число від $minValue до $maxValue.";
+
+            } elseif (
+                !empty($field['positive']) &&
+                (float) $value <= 0
+            ) {
+
+                $errors[$name] =
+                    'Сума повинна бути більшою за нуль.';
             }
         }
 
+
         $data[$name] = $value;
     }
+
+
+    if ($table === 'Booking' &&
+        !isset($errors['start_time']) &&
+        !isset($errors['end_time'])) {
+
+        if ($data['end_time'] <= $data['start_time']) {
+
+            $errors['end_time'] =
+                'Час завершення повинен бути пізніше часу початку.';
+        }
+    }
+
 
     if (empty($errors)) {
         try {
@@ -135,11 +254,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             error_log($e->getMessage());
 
-            if (($e->errorInfo[1] ?? null) == 1062) {
-                $formError = 'Такий запис уже існує.';
-            } else {
-                $formError = 'Не вдалося зберегти запис.';
-            }
+            
+    if (($e->errorInfo[1] ?? null) == 1062) {
+
+        $formError = 'Такий запис уже існує.';
+
+    } elseif (($e->errorInfo[1] ?? null) == 1452) {
+
+        $formError =
+            'Пов’язаний запис не існує. Оберіть інше значення.';
+
+    } else {
+
+        $formError = 'Не вдалося зберегти запис.';
+    }
+
         }
     }
 }
@@ -182,7 +311,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <?= e($field['label']) ?>
             </label>
 
-            <?php if ($field['type'] === 'textarea'): ?>
+            
+        <?php if ($field['type'] === 'select'): ?>
+
+            <select id="<?= e($name) ?>"
+                    name="<?= e($name) ?>"
+                    <?= $field['required'] ? 'required' : '' ?>>
+
+                <option value="">Оберіть значення</option>
+
+                <?php foreach ($options[$name] as $optionId => $optionLabel): ?>
+
+                    <option value="<?= e($optionId) ?>"
+                        <?= (string) $values[$name] === (string) $optionId
+                            ? 'selected' : '' ?>>
+
+                        <?= e($optionLabel) ?>
+
+                    </option>
+
+                <?php endforeach; ?>
+
+            </select>
+
+        <?php elseif ($field['type'] === 'textarea'): ?>
+
 
                 <textarea
                     id="<?= e($name) ?>"
@@ -198,11 +351,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     id="<?= e($name) ?>"
                     name="<?= e($name) ?>"
 
-                    type="<?= in_array(
-                        $field['type'],
-                        ['integer', 'decimal'],
-                        true
-                    ) ? 'number' : 'text' ?>"
+                    type="<?= match ($field['type']) {
+                        'integer', 'decimal' => 'number',
+                        'phone' => 'tel',
+                        'datetime' => 'datetime-local',
+                        default => 'text'
+                    } ?>"
+
+                    <?php if ($field['type'] === 'datetime'): ?>
+                        step="1"
+                    <?php endif; ?>
 
                     value="<?= e($values[$name]) ?>"
 
@@ -214,9 +372,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         min="1" max="2147483647" step="1"
                     <?php endif; ?>
 
+                    
                     <?php if ($field['type'] === 'decimal'): ?>
-                        min="0" max="999999.99" step="0.01"
+
+                        min="<?= !empty($field['positive'])
+                            ? '0.01' : '0' ?>"
+
+                        max="<?= str_repeat(
+                            '9',
+                            $field['digits'] ?? 6
+                        ) . '.99' ?>"
+
+                        step="0.01"
+
                     <?php endif; ?>
+
 
                     <?= $field['required'] ? 'required' : '' ?>
                 >

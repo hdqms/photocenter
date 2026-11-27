@@ -12,11 +12,43 @@ $table = $config['table'];
 $pk = $config['id'];
 $fields = $config['fields'];
 
-$stmt = $pdo->query(
-    "SELECT * FROM `$table` ORDER BY `$pk`"
-);
 
+$columns = ['t.*'];
+$joins = [];
+$i = 0;
+
+foreach ($fields as $name => $field) {
+
+    if (isset($field['foreign'])) {
+
+        $foreign = $field['foreign'];
+
+        $foreignTable = $foreign['table'];
+        $foreignId = $foreign['id'];
+        $foreignLabel = $foreign['label'];
+
+        $alias = 'f' . $i++;
+
+        $labelSql = foreign_label_sql($pdo, $foreign, $alias);
+
+        $columns[] =
+            "$labelSql AS `{$name}_label`";
+
+        $joins[] =
+            "LEFT JOIN `$foreignTable` $alias
+             ON t.`$name` = $alias.`$foreignId`";
+    }
+}
+
+$sql = "SELECT " . implode(', ', $columns)
+     . " FROM `$table` t "
+     . implode(' ', $joins)
+     . " ORDER BY t.`$pk`";
+
+$stmt = $pdo->query($sql);
 $records = $stmt->fetchAll();
+
+
 ?>
 <!DOCTYPE html>
 <html lang="uk">
@@ -48,12 +80,18 @@ $records = $stmt->fetchAll();
         <?php unset($_SESSION['error']); ?>
     <?php endif; ?>
 
-    <div class="toolbar">
-        <a href="form.php?entity=<?= e($key) ?>"
-           class="add-btn">
-            Додати запис
-        </a>
-    </div>
+    
+<div class="toolbar">
+
+    <a href="form.php?entity=<?= e($key) ?>"
+       class="add-btn">
+        Додати запис
+    </a>
+
+
+
+</div>
+
 
     <table>
         <thead>
@@ -82,11 +120,21 @@ $records = $stmt->fetchAll();
                 <tr>
                     <td><?= e($record[$pk]) ?></td>
 
-                    <?php foreach ($fields as $name => $field): ?>
-                        <td>
-                            <?= e($record[$name] ?? '—') ?>
-                        </td>
-                    <?php endforeach; ?>
+                    
+            <?php foreach ($fields as $name => $field): ?>
+                <td>
+                    <?php if (isset($field['foreign'])): ?>
+
+                        <?= e($record[$name . '_label'] ?? '—') ?>
+
+                    <?php else: ?>
+
+                        <?= e($record[$name] ?? '—') ?>
+
+                    <?php endif; ?>
+                </td>
+            <?php endforeach; ?>
+
 
                     <td>
                         <a class="edit-btn"
