@@ -88,7 +88,14 @@ $records = $stmt->fetchAll();
         Додати запис
     </a>
 
+    <?php if ($key === 'orders'): ?>
 
+        <a href="order_transaction.php"
+           class="add-btn">
+            Оформити замовлення
+        </a>
+
+    <?php endif; ?>
 
 </div>
 

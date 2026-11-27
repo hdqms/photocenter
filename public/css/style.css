@@ -238,3 +238,14 @@ th {
     font-size: 13px;
     margin-top: -6px;
 }
+
+.transaction-test {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.transaction-test input[type="checkbox"] {
+    width: auto;
+    margin: 0;
+}
